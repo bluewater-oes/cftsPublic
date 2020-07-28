@@ -1,6 +1,6 @@
 astroid==2.3.3
 colorama==0.4.3
-Django==2.1.12
+Django==2.2.13
 django-mssql==1.8
 django-pyodbc-azure==2.1.0.0
 django-static-jquery-ui==1.12.1.1
