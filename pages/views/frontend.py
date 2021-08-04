@@ -1,9 +1,9 @@
 # ====================================================================
 # crypto
 import hashlib
+from django import http
 # responses
 from django.shortcuts import render
-from django.http import HttpResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 
 # db/model stuff
@@ -26,9 +26,8 @@ def frontend(request):
             userHash = userHash.hexdigest()
             rc = {'networks': nets, 'resources': resources,
                 'cert': cert, 'userHash': userHash}
-    except KeyError:
-        rc = {'networks': nets, 'resources': resources, }
-    #  for rl in resources:
-#    print( rl.file_name )
 
-    return render(request, 'pages/frontend.html', {'rc': rc})
+        return render(request, 'pages/frontend.html', {'rc': rc})
+    
+    except KeyError:
+        return render(request, 'pages/consent.html')
