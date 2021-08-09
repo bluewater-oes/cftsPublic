@@ -18,20 +18,17 @@ def frontend(request):
         request.session.set_expiry(0)
         nets = Network.objects.all()
         resources = ResourceLink.objects.all()
-        cert = request.META['CERT_SUBJECT']
-        
-        if cert =="":
-            rc = {'networks': nets, 'resources': resources, }
-        else:
+        try:
+            cert = request.META['CERT_SUBJECT']
             userHash = hashlib.md5()
             userHash.update(cert.encode())
             userHash = userHash.hexdigest()
             rc = {'networks': nets, 'resources': resources,
                 'cert': cert, 'userHash': userHash}
-    except KeyError:
-        rc = {'networks': nets, 'resources': resources, }
-    #  for rl in resources:
-#    print( rl.file_name )
+        except KeyError:
+            rc = {'networks': nets, 'resources': resources, }
+        #  for rl in resources:
+    #    print( rl.file_name )
 
         return render(request, 'pages/frontend.html', {'rc': rc})
     
