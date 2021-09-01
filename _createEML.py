@@ -39,17 +39,14 @@ for root, subdirs, files in os.walk(zipExtractPath):
         if requestRE.match(subdirpath.split("\\")[-1]) != None:
             requestPaths.append(subdirpath)
 
-
-msg = MIMEMultipart()
-
-
-msg['Subject'] = 'CFTS File Transfer'
-
-msg.attach(MIMEText('Attatched files transfered across domains from CFTS.'))
-
 for path in requestPaths:
     print("scanning from request: ", path)
     print("creating email file...")
+    
+    msg = MIMEMultipart()
+    msg['Subject'] = 'CFTS File Transfer'
+    msg.attach(MIMEText('Attatched files transfered across domains from CFTS.'))
+    
     for root, subdirs, files in os.walk(path):
         for f in files:
             filePath = os.path.join(root,f)
