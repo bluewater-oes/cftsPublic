@@ -23,6 +23,14 @@ jobs:
           GITHUB_PROJECT_URL: https://github.com/bluewater-oes/cftsPublic/projects/1
           GITHUB_PROJECT_COLUMN_NAME: In progress
           
+      - name: add-closed-issues-to-repository-based-project-column
+        uses: docker://takanabe/github-actions-automate-projects:v0.0.1
+        if: github.event_name == 'issue' && github.event.action == 'closed'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_PROJECT_URL: https://github.com/bluewater-oes/cftsPublic/projects/1
+          GITHUB_PROJECT_COLUMN_NAME: In progress
+          
       - name: add-new-prs-to-repository-based-project-column
         uses: docker://takanabe/github-actions-automate-projects:v0.0.1
         if: github.event_name == 'pull_request' && github.event.action == 'opened'
