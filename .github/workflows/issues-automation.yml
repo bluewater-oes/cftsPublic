@@ -1,0 +1,27 @@
+name: Issues automation
+
+on:
+  issues:
+    types: [opened, assigned]
+  pull_request:
+    types: [opened, closed]
+
+jobs:
+  automate-project-columns:
+    runs-on: ubuntu-latest
+    steps:
+    - name: add-new-issues-to-repository-based-project-column
+      uses: alex-page/github-project-automation-plus@v0.8.1
+      if:  github.event_name == 'issue' && github.event.action == 'opened'
+      with:
+          project: CFTS
+          column: To do
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          
+    - name: add-assigned-issues-to-repository-based-project-column
+      uses: alex-page/github-project-automation-plus@v0.8.1
+      if: github.event_name == 'issue' && github.event.action == 'assigned'
+      with:
+          project: CFTS
+          column: In progress
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
