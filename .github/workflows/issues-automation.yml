@@ -3,9 +3,7 @@ name: Issues automation
 on:
   issues:
     types: [opened, assigned]
-  pull_request:
-    types: [opened, closed]
-
+    
 jobs:
   automate-project-columns:
     runs-on: ubuntu-latest
